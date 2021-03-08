@@ -2,6 +2,7 @@ package tms_daotest;
 
 import java.io.Serializable;
 import java.sql.Date;
+import java.util.List;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -9,12 +10,16 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 
 @Entity
 public class TaskListItems implements Serializable {
 	@Id
 	@GeneratedValue(strategy = GenerationType.TABLE)
 	long id;
+	
+	@OneToMany(mappedBy = "AssignTaskListId",targetEntity = TaskListAssignment.class)
+	private List<TaskListAssignment> tlAssign;
 	
 	@ManyToOne
 	@JoinColumn(name="TaskListId")
@@ -39,10 +44,14 @@ public class TaskListItems implements Serializable {
 		// TODO Auto-generated constructor stub
 	}
 
-	public TaskListItems(long id, TaskListName tlTaskListID, long ownerUserId, Date createdDate, Date modefiedDate,
-			String subject, String body, TaskListStatus tlStatusID, TaskListCategories tlCategoryID) {
+	
+
+	public TaskListItems(long id, List<TaskListAssignment> tlAssign, TaskListName tlTaskListID, long ownerUserId,
+			Date createdDate, Date modefiedDate, String subject, String body, TaskListStatus tlStatusID,
+			TaskListCategories tlCategoryID) {
 		super();
 		this.id = id;
+		this.tlAssign = tlAssign;
 		this.tlTaskListID = tlTaskListID;
 		this.ownerUserId = ownerUserId;
 		this.createdDate = createdDate;
@@ -51,6 +60,16 @@ public class TaskListItems implements Serializable {
 		Body = body;
 		this.tlStatusID = tlStatusID;
 		this.tlCategoryID = tlCategoryID;
+	}
+
+
+
+	public List<TaskListAssignment> getTlAssign() {
+		return tlAssign;
+	}
+
+	public void setTlAssign(List<TaskListAssignment> tlAssign) {
+		this.tlAssign = tlAssign;
 	}
 
 	public long getId() {

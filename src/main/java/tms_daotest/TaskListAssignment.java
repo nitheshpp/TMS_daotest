@@ -19,15 +19,30 @@ public class TaskListAssignment implements Serializable {
 	@JoinColumn(name="userId")
 	TaskListUser AssignUserId;
 
+	@ManyToOne
+	@JoinColumn(name="TaskListId" ,referencedColumnName="TaskListId")
+	TaskListItems AssignTaskListId;
+	
 	public TaskListAssignment() {
 		
 		// TODO Auto-generated constructor stub
 	}
 
-	public TaskListAssignment(long id, TaskListUser assignUserId) {
+	
+
+	public TaskListAssignment(long id, TaskListUser assignUserId, TaskListItems assignTaskListId) {
 		super();
 		this.id = id;
 		AssignUserId = assignUserId;
+		AssignTaskListId = assignTaskListId;
+	}
+
+	public TaskListItems getAssignTaskListId() {
+		return AssignTaskListId;
+	}
+
+	public void setAssignTaskListId(TaskListItems assignTaskListId) {
+		AssignTaskListId = assignTaskListId;
 	}
 
 	public long getId() {
