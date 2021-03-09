@@ -23,7 +23,6 @@ public class TaskListCategories implements Serializable{
 
 	public TaskListCategories() {
 		
-		// TODO Auto-generated constructor stub
 	}
 
 	public TaskListCategories(long id, List<TaskListItems> tlItemCategory, String description) {
